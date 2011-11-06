@@ -4,6 +4,14 @@
 
 Tap into the new iOS5 Twitter.framework
 
+## Installation
+
+[http://wiki.appcelerator.org/display/tis/Using+Titanium+Modules]()
+
+## Changelog
+
+See [here](changelog.html)
+
 ## Accessing the twitter Module
 
 To access this module from JavaScript, you would do the following:

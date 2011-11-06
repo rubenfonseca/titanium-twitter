@@ -18,7 +18,7 @@ the user and the tweet can no longer be changed.
 
 Returns whether you can send a Twitter request.
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     if(composer.canSendTweet()) {
       alert("Can send tweet");
     } else {
@@ -30,7 +30,7 @@ Returns whether you can send a Twitter request.
 Sets the initial text for a tweet. Returns `true` if successful. `false` if text does not fit in the currently
 available character space or the view was presented to the user.
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     composer.setInitialText("Hello Tweet");
 
 ### - addImage(blob)
@@ -39,7 +39,7 @@ Adds an image to the tweet. The argument bust be a `TiBlob` (check the example).
 if image does not fit in the currently available character space or the view was presented to the user.
 
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     var image = Ti.Filesystem.getFile('rails.png');
     composer.addImage(image.read()); // always use a TiBlob!
 
@@ -48,7 +48,7 @@ if image does not fit in the currently available character space or the view was
 Removes all images from the tweet. Returns `true` if successful. `false` if the images were not removed because the
 view was presented to the user.
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     composer.removeAllImages();
 
 ### - addURL(url)
@@ -57,7 +57,7 @@ Adds a URL to the tweet. Returns `true` if successful. `false` if url does not
 fit in the currently available character space or the view was presented to the
 user.
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     composer.addURL('http://google.com');
 
 ### - removeAllURLs()
@@ -65,7 +65,7 @@ user.
 Removes all URLs from the tweet. Returns `true` if successful. `false` if the
 URLs were not removed because the view was presented to the user.
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     composer.removeAllURLs();
 
 ### - open()
@@ -74,7 +74,7 @@ Opens the Tweet sheet to the user, so he/she can personalize the message and fin
 the tweet. The view will appear in front of all the present views, and works as a modal
 window.
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     composer.open();
 
 ## Events
@@ -84,7 +84,7 @@ window.
 Sent after the user sends or cancels a Tweet. The event object contains a key `result` with
 the result of the operation.
 
-    var composer = Twitter.createComposerView();
+    var composer = Twitter.createTweetComposerView();
     composer.addEventListener('complete', function(e) {
       if(e.result == Twitter.DONE)
         alert('Sent! :D');
