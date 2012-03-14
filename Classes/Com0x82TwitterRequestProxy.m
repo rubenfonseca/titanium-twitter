@@ -17,27 +17,32 @@
 }
 
 -(void)perform:(id)arg {
-  [[self request] performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-    
-		if ([urlResponse statusCode] == 200) {
-			// Parse the responseData, which we asked to be in JSON format for this request, into an NSDictionary using NSJSONSerialization.
-			NSError *jsonParsingError = nil;
-			NSDictionary *output = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&jsonParsingError];
-      
-      NSDictionary *success_args = [NSDictionary dictionaryWithObjectsAndKeys:NUMINT([urlResponse statusCode]), @"status", output, @"data", nil];
-      [self fireEvent:@"success" withObject:success_args];
-		}
-		else {
-      NSDictionary *failure_args = TiCreateNonRetainingDictionary();
-      
-      [failure_args setValue:NUMINT([urlResponse statusCode]) forKey:@"status"];
-      
-      if(error) {
-        [failure_args setValue:[error localizedDescription] forKey:@"error"];
-      }
-      
-      [self fireEvent:@"failure" withObject:failure_args];
-		}
+	[self rememberSelf];
+	
+	[[self request] performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+			
+			if ([urlResponse statusCode] == 200) {
+				// Parse the responseData, which we asked to be in JSON format for this request, into an NSDictionary using NSJSONSerialization.
+				NSError *jsonParsingError = nil;
+				NSDictionary *output = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&jsonParsingError];
+				
+				NSDictionary *success_args = [NSDictionary dictionaryWithObjectsAndKeys:NUMINT([urlResponse statusCode]), @"status", output, @"data", nil];
+				
+				[self fireEvent:@"success" withObject:success_args];
+			}
+			else {
+				NSDictionary *failure_args = TiCreateNonRetainingDictionary();
+				
+				[failure_args setValue:NUMINT([urlResponse statusCode]) forKey:@"status"];
+				
+				if(error) {
+					[failure_args setValue:[error localizedDescription] forKey:@"error"];
+				}
+				
+				[self fireEvent:@"failure" withObject:failure_args];
+			}
+		
+		[self forgetSelf];
   }];
 }
 
