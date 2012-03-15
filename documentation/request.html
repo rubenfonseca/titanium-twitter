@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>changelog</title>
+  <title>request</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
 /* 
@@ -240,33 +240,94 @@ sub {
 </head>
 <body class="normal">
   <div id="wrapper">
-      <h1 id="changelog">Changelog</h1>
+      <h1 id="request">Request</h1>
+
+<p><em>This documentation is not in sync with the Apple documentation</em></p>
+
+<h2 id="properties">Properties</h2>
+
+<h3 id="url">url</h3>
+
+<p>The URL to make the request. Ex: <code>http://api.twitter.com/1/statuses/public_timeline.json</code>.</p>
+
+<h3 id="method">method</h3>
+
+<p>On of the 3 request methods:</p>
 
 <ul>
-<li><p>2012&#8211;03&#8211;15 Ruben Fonseca <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#102;&#x6f;&#x6e;&#115;&#x65;&#107;&#97;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#102;&#x6f;&#x6e;&#115;&#101;&#x6b;&#x61;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<li>Twitter.REQUEST_METHOD_GET</li>
+<li>Twitter.REQUEST_METHOD_POST</li>
+<li>Twitter.REQUEST_METHOD_DELETE</li>
+</ul>
+
+<h3 id="accountoptional">account (optional)</h3>
+
+<p>If you want to authenticate/sign the request, you must provide a valid
+<a href="account.html">Account</a> object to this property, before you make the request.</p>
+
+<h2 id="events">Events</h2>
+
+<h3 id="success">success</h3>
+
+<p>Fired when the Twitter Request succeeds. The returned JSON response is
+deserialized on the <code>data</code> key on the event object.</p>
+
+<pre><code>var request = Twitter.createRequest({
+  url: 'http://api.twitter.com/1/statuses/public_timeline.jso',
+  method: Twitter.REQUEST_METHOD_GET
+});
+
+request.addEventListener('success', function(e) {
+  Ti.API.log(e.data);
+});
+
+request.perform();
+</code></pre>
+
+<h3 id="failure">failure</h3>
+
+<p>Fired when the Twitter Request fails. An error explanation should be present
+on the <code>error</code> key.</p>
+
+<pre><code>var request = Twitter.createRequest({
+  url: 'http://api.twitter.com/1/statuses/public_timeline.jso',
+  method: Twitter.REQUEST_METHOD_GET
+});
+
+request.addEventListener('failure', function(e) {
+  Ti.API.log(&quot;STATUS CODE IS &quot; + e.status);
+  Ti.API.log(&quot;ERROR: &quot; + e.error);
+});
+
+request.perform();
+</code></pre>
+
+<h2 id="tasks">Tasks</h2>
+
+<h3 id="perform">perform()</h3>
+
+<p>Performs the request. Set the success/failure handlers before calling this method. The
+result will be delivered async.</p>
+
+<h3 id="addmultipartdata">addMultiPartData({&#8230;})</h3>
+
+<p>Adds a binary object to the request, like an image. It accepts the following 3 required keys:</p>
 
 <ul>
-<li><p>version 0.4 released</p></li>
-<li><p>fixed a rare error when a request object went out of JS scope, and failed silently</p></li>
-</ul></li>
-<li><p>2012&#8211;02&#8211;13 Rúben Fonseca <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#102;&#x6f;&#x6e;&#x73;&#101;&#107;&#97;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#x66;&#x6f;&#110;&#115;&#x65;&#107;&#x61;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<li><p><em>name</em>: the name of the argument</p></li>
+<li><p><em>data</em>: a TiBlob with the data to add to the request</p></li>
+<li><p><em>type</em>: a mime type string</p>
 
-<ul>
-<li><p>version 0.3 released</p></li>
-<li><p>trying to solve some problems some users reported when using this module
- with version 1.8.1 of the Titanium SDK</p></li>
-</ul></li>
-<li><p>2011&#8211;11&#8211;06 Rúben Fonseca <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#102;&#111;&#x6e;&#x73;&#101;&#107;&#97;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x66;&#x6f;&#110;&#115;&#x65;&#x6b;&#x61;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
+<p>var request = Twitter.createRequest({&#8230;})
+ var image = Ti.Filesystem.getFile(&#8230;);</p>
 
-<ul>
-<li><p>version 0.2 released</p></li>
-<li><p>no changes on features, just a fix on the documentation/tweet_composer_view.html</p></li>
-</ul></li>
-<li><p>2011&#8211;10&#8211;10 Rúben Fonseca <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#102;&#x6f;&#110;&#115;&#x65;&#x6b;&#x61;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x66;&#x6f;&#110;&#115;&#101;&#x6b;&#x61;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>request.addMultiPartData({
+ name: &#8216;media[]&#8217;,
+ data: image.read(), // always a TiBlob
+ type: &#8216;image/png&#8217;
+ });</p>
 
-<ul>
-<li>initial 0.1 version</li>
-</ul></li>
+<p>request.perform();</p></li>
 </ul>
 
     </div>

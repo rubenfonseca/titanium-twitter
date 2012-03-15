@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>changelog</title>
+  <title>index</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
 /* 
@@ -240,34 +240,110 @@ sub {
 </head>
 <body class="normal">
   <div id="wrapper">
-      <h1 id="changelog">Changelog</h1>
+      <h1 id="twittermodule">twitter Module</h1>
+
+<h2 id="description">Description</h2>
+
+<p>Tap into the new iOS5 Twitter.framework</p>
+
+<h2 id="installation">Installation</h2>
+
+<p><a href="">http://wiki.appcelerator.org/display/tis/Using+Titanium+Modules</a></p>
+
+<h2 id="changelog">Changelog</h2>
+
+<p>See <a href="changelog.html">here</a></p>
+
+<h2 id="accessingthetwittermodule">Accessing the twitter Module</h2>
+
+<p>To access this module from JavaScript, you would do the following:</p>
+
+<pre><code>var Twitter = require(&quot;com.0x82.twitter&quot;);
+</code></pre>
+
+<p>The Twitter variable is a reference to the Module object. </p>
+
+<h3 id="ios5moduleonly">iOS5 module only</h3>
+
+<p>This is an iOS5 module only! If you try to require it on an iOS &lt; = 4 device,
+it will throw an exception. So you should include some sort of code on
+your application to check in which version of iOS are you running, and then
+decide to use or not use this module</p>
+
+<pre><code>function isiOS5Plus()
+{
+  // add iphone specific tests
+  if (Titanium.Platform.name == 'iPhone OS')
+  {
+    var version = Titanium.Platform.version.split(&quot;.&quot;);
+    var major = parseInt(version[0],10);
+
+    if (major &gt;= 5)
+    {
+      return true;
+    }
+  }
+  return false;
+}  
+</code></pre>
+
+<h2 id="reference">Reference</h2>
+
+<p>Please visit the following links to see the different classes of the application:</p>
 
 <ul>
-<li><p>2012&#8211;03&#8211;15 Ruben Fonseca <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#102;&#x6f;&#x6e;&#115;&#x65;&#107;&#97;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#102;&#x6f;&#x6e;&#115;&#101;&#x6b;&#x61;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-
-<ul>
-<li><p>version 0.4 released</p></li>
-<li><p>fixed a rare error when a request object went out of JS scope, and failed silently</p></li>
-</ul></li>
-<li><p>2012&#8211;02&#8211;13 Rúben Fonseca <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#102;&#x6f;&#x6e;&#x73;&#101;&#107;&#97;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#x66;&#x6f;&#110;&#115;&#x65;&#107;&#x61;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-
-<ul>
-<li><p>version 0.3 released</p></li>
-<li><p>trying to solve some problems some users reported when using this module
- with version 1.8.1 of the Titanium SDK</p></li>
-</ul></li>
-<li><p>2011&#8211;11&#8211;06 Rúben Fonseca <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#102;&#111;&#x6e;&#x73;&#101;&#107;&#97;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x66;&#x6f;&#110;&#115;&#x65;&#x6b;&#x61;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-
-<ul>
-<li><p>version 0.2 released</p></li>
-<li><p>no changes on features, just a fix on the documentation/tweet_composer_view.html</p></li>
-</ul></li>
-<li><p>2011&#8211;10&#8211;10 Rúben Fonseca <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#102;&#x6f;&#110;&#115;&#x65;&#x6b;&#x61;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x66;&#x6f;&#110;&#115;&#101;&#x6b;&#x61;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-
-<ul>
-<li>initial 0.1 version</li>
-</ul></li>
+<li><a href="tweet_composer_view.html">TweetComposerView</a></li>
+<li><a href="account.html">Account</a></li>
+<li><a href="account_credential.html">AccountCredential</a></li>
+<li><a href="account_store.html">AccountStore</a></li>
+<li><a href="request.html">Request</a></li>
 </ul>
+
+<h3 id="events">Events</h3>
+
+<h4 id="update">update</h4>
+
+<p>The &#8216;update&#8217; event is fired on the Twitter module eveytime something changes about Twitter
+authentication. The event is sent with the following param:</p>
+
+<ul>
+<li><em>canSendTweet</em>: a boolean value (true/false) indicating if you are now able to send a tweet
+ on behalf the user</li>
+</ul>
+
+<p>Example usage:</p>
+
+<pre><code>Twitter.addEventListener('update', function(e) {
+  if(e.canSendTweet)
+    alert('Now we can send tweets :D');
+  else
+    alert('You are not allowed to send tweets, please check your authorization');
+});
+</code></pre>
+
+<h3 id="constants">Constants</h3>
+
+<h4 id="twitter.done">Twitter.DONE</h4>
+
+<h4 id="twitter.cancelled">Twitter.CANCELLED</h4>
+
+<p>Used when the <a href="tweet_composer_view.html">TweetComposerView</a> finished sending a tweet.</p>
+
+<h4 id="twitter.request_method_get">Twitter.REQUEST_METHOD_GET</h4>
+
+<h4 id="twitter.request_method_post">Twitter.REQUEST_METHOD_POST</h4>
+
+<h4 id="twitter.request_method_delete">Twitter.REQUEST_METHOD_DELETE</h4>
+
+<p>Used on <a href="request.html">Request</a> to specify the type of request to be made to Twitter</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>Please see the example directory, since it contains several examples of all the API.</p>
+
+<h2 id="author">Author</h2>
+
+<p>Rúben Fonseca, (C) 2011</p>
 
     </div>
 </body>

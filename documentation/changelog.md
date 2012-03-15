@@ -1,5 +1,11 @@
 # Changelog
 
+- 2012-03-15 Ruben Fonseca <fonseka@gmail.com>
+
+    * version 0.4 released
+
+    * fixed a rare error when a request object went out of JS scope, and failed silently
+
 - 2012-02-13 Rúben Fonseca <fonseka@gmail.com>
 
     * version 0.3 released
