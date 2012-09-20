@@ -23,6 +23,7 @@
 
 /* Begin PBXBuildFile section */
 		24DE9E1111C5FE74003F90F6 /* Com0x82TwitterModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* Com0x82TwitterModuleAssets.h */; };
+		3E1F465715C7FC7A009FDEB4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1F465615C7FC7A009FDEB4 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3E48C9F51410049A0061E703 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E48C9F41410049A0061E703 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3E48CA0F14110DAF0061E703 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E48CA0E14110DAF0061E703 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3E94BBD6143216B500656B92 /* Com0x82TwitterAccountCredentialProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E94BBC8143216B500656B92 /* Com0x82TwitterAccountCredentialProxy.h */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
 		24DE9E0F11C5FE74003F90F6 /* Com0x82TwitterModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Com0x82TwitterModuleAssets.h; path = Classes/Com0x82TwitterModuleAssets.h; sourceTree = "<group>"; };
+		3E1F465615C7FC7A009FDEB4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3E48C9F41410049A0061E703 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3E48CA0E14110DAF0061E703 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		3E94BBC8143216B500656B92 /* Com0x82TwitterAccountCredentialProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Com0x82TwitterAccountCredentialProxy.h; path = Classes/Com0x82TwitterAccountCredentialProxy.h; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E1F465715C7FC7A009FDEB4 /* Social.framework in Frameworks */,
 				3E48CA0F14110DAF0061E703 /* Accounts.framework in Frameworks */,
 				3E48C9F51410049A0061E703 /* Twitter.framework in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
@@ -111,6 +114,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E1F465615C7FC7A009FDEB4 /* Social.framework */,
 				3E48CA0E14110DAF0061E703 /* Accounts.framework */,
 				3E48C9F41410049A0061E703 /* Twitter.framework */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
@@ -192,7 +196,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "twitter" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -262,10 +266,7 @@
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/Com0x82Twitter.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -283,10 +284,7 @@
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/Com0x82Twitter.dst;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -306,9 +304,10 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 			};
@@ -323,9 +322,10 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 			};
@@ -338,6 +338,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_THUMB_SUPPORT = NO;
 				PRODUCT_NAME = "Build & test";
 			};
 			name = Debug;
@@ -348,6 +349,7 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_THUMB_SUPPORT = NO;
 				PRODUCT_NAME = "Build & test";
 				ZERO_LINK = NO;
 			};

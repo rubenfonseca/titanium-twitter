@@ -2,11 +2,15 @@
 
 ## Description
 
-Tap into the new iOS5 Twitter.framework
+Tap into the new iOS5 Twitter.framework (also works with iOS6 and later
+with the Social.framework)
 
 ## Installation
 
 [http://wiki.appcelerator.org/display/tis/Using+Titanium+Modules]()
+
+To use this module since version 1.0 you must be using at least Xcode 4.5
+with iOS SDK 6.0 or later.
 
 ## Changelog
 

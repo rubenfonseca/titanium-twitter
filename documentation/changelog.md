@@ -1,5 +1,13 @@
 # Changelog
 
+- 2012-09-20 Ruben Fonseca <fonseka@gmail.com>
+
+    * version 1.0 released
+
+    * support for the new iOS6 Social.framework
+
+    * no changes required on code!
+
 - 2012-03-15 Ruben Fonseca <fonseka@gmail.com>
 
     * version 0.4 released
