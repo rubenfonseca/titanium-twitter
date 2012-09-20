@@ -42,18 +42,33 @@
   permissionGrantedCallback = [granted retain];
   permissionDeniedCallback = [denied retain];
   
-  [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-    if(granted) {
-      if(permissionGrantedCallback)
-        [self _fireEventToListener:@"granted" withObject:nil listener:permissionGrantedCallback thisObject:nil];
-    } else {
-      if(permissionDeniedCallback)
-        [self _fireEventToListener:@"denied" withObject:nil listener:permissionDeniedCallback thisObject:nil];
-    }
-    
-    RELEASE_TO_NIL(permissionGrantedCallback);
-    RELEASE_TO_NIL(permissionDeniedCallback);
-  }];
+	if(IOS6_OR_LATER) {
+		[accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
+			if(granted) {
+				if(permissionGrantedCallback)
+					[self _fireEventToListener:@"granted" withObject:nil listener:permissionGrantedCallback thisObject:nil];
+			} else {
+				if(permissionDeniedCallback)
+					[self _fireEventToListener:@"denied" withObject:nil listener:permissionDeniedCallback thisObject:nil];
+			}
+			
+			RELEASE_TO_NIL(permissionGrantedCallback);
+			RELEASE_TO_NIL(permissionDeniedCallback);
+		}];
+	} else {
+		[accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+			if(granted) {
+				if(permissionGrantedCallback)
+					[self _fireEventToListener:@"granted" withObject:nil listener:permissionGrantedCallback thisObject:nil];
+			} else {
+				if(permissionDeniedCallback)
+					[self _fireEventToListener:@"denied" withObject:nil listener:permissionDeniedCallback thisObject:nil];
+			}
+			
+			RELEASE_TO_NIL(permissionGrantedCallback);
+			RELEASE_TO_NIL(permissionDeniedCallback);
+		}];
+	}
 }
 
 -(id)accounts:(id)args {

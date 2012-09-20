@@ -9,14 +9,12 @@
 #import "TiProxy.h"
 #import "TiUtils.h"
 
-#import <Twitter/Twitter.h>
-
 @interface Com0x82TwitterRequestProxy : TiProxy {
   
   @private
-  TWRequest *request;
+  id request;
 }
 
--(TWRequest *)request;
+-(id)request;
 
 @end

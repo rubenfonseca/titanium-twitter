@@ -10,7 +10,7 @@
 
 @interface Com0x82TwitterTweetComposerViewProxy : TiProxy {
 @private
-    TWTweetComposeViewController *tweetComposeViewController;
+		id tweetComposeViewController;
 
     BOOL retSetInitialText;
     BOOL retAddImage;

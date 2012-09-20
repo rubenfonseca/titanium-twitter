@@ -7,17 +7,35 @@
 
 -(id)init {
     if(self = [super init]) {
-        tweetComposeViewController = [[TWTweetComposeViewController alloc] init];
-        
-        tweetComposeViewController.completionHandler = ^(TWTweetComposeViewControllerResult result) {
-            if([self _hasListeners:@"complete"]) {
-                NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:NUMINT(result), @"result", nil];
-            
-                [self fireEvent:@"complete" withObject:args];
-            }
-            
-            [[TiApp controller] dismissModalViewControllerAnimated:YES];
-        };
+			if(IOS6_OR_LATER) {
+				SLComposeViewController *c = [[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter] retain];
+				
+				c.completionHandler = ^(SLComposeViewControllerResult result) {
+					if([self _hasListeners:@"complete"]) {
+						[self fireEvent:@"complete" withObject:@{ @"result" : @(result) }];
+					}
+					
+					[[TiApp controller] dismissViewControllerAnimated:YES completion:nil];
+				};
+				
+				tweetComposeViewController = c;
+			} else {
+        TWTweetComposeViewController *c = [[TWTweetComposeViewController alloc] init];
+				
+				c.completionHandler = ^(TWTweetComposeViewControllerResult result) {
+					if([self _hasListeners:@"complete"]) {
+							NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:NUMINT(result), @"result", nil];
+					
+							[self fireEvent:@"complete" withObject:args];
+					}
+					
+					[[TiApp controller] dismissViewControllerAnimated:YES completion:nil];
+				};
+				
+				tweetComposeViewController = c;
+			}
+				
+			
     }
     
     return self;
@@ -42,7 +60,7 @@
  @returns `true` if Twitter is accessible and at least one account is setup; otherwise, `false`.
  */
 -(id)canSendTweet:(id)args {
-    return NUMBOOL([TWTweetComposeViewController canSendTweet]);
+	return IOS6_OR_LATER ? @([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) : @([TWTweetComposeViewController canSendTweet]);
 }
 
 /// @name Composing Tweets
@@ -57,7 +75,10 @@
  */
 -(id)setInitialText:(id)text {
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
-        retSetInitialText = [tweetComposeViewController setInitialText:[TiUtils stringValue:text]];
+			if(IOS6_OR_LATER)
+				retSetInitialText = [(SLComposeViewController *)tweetComposeViewController setInitialText:text];
+			else
+        retSetInitialText = [(TWTweetComposeViewController *)tweetComposeViewController setInitialText:[TiUtils stringValue:text]];
     });
     
     return NUMBOOL(retSetInitialText);
@@ -81,7 +102,10 @@
     UIImage *image = [blob image];
     
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
-        retAddImage = [tweetComposeViewController addImage:image];
+			if(IOS6_OR_LATER)
+				retAddImage = [(SLComposeViewController *)tweetComposeViewController addImage:image];
+			else
+        retAddImage = [(TWTweetComposeViewController *)tweetComposeViewController addImage:image];
     });
     
     return NUMBOOL(retAddImage);
@@ -93,7 +117,10 @@
  */
 -(id)removeAllImages:(id)args {
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
-        retRemoveAllImages = [tweetComposeViewController removeAllImages];
+			if(IOS6_OR_LATER)
+				retRemoveAllImages = [(SLComposeViewController *)tweetComposeViewController removeAllImages];
+			else
+        retRemoveAllImages = [(TWTweetComposeViewController *)tweetComposeViewController removeAllImages];
     });
     
     return NUMBOOL(retRemoveAllImages);
@@ -103,7 +130,10 @@
     NSString *urlString = [TiUtils stringValue:[args objectAtIndex:0]];
     
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
-        retAddURL = [tweetComposeViewController addURL:[NSURL URLWithString:urlString]]; 
+			if(IOS6_OR_LATER)
+				retAddURL = [(SLComposeViewController *)tweetComposeViewController addURL:[NSURL URLWithString:urlString]];
+			else
+        retAddURL = [(TWTweetComposeViewController *)tweetComposeViewController addURL:[NSURL URLWithString:urlString]];
     });
     
     return NUMBOOL(retAddURL);
@@ -111,7 +141,10 @@
 
 -(id)removeAllURLs:(id)arg {
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
-        retRemoveAllURLs = [tweetComposeViewController removeAllURLs];
+			if(IOS6_OR_LATER)
+				retRemoveAllURLs = [(SLComposeViewController *)tweetComposeViewController removeAllURLs];
+			else
+        retRemoveAllURLs = [(TWTweetComposeViewController *)tweetComposeViewController removeAllURLs];
     });
     
     return NUMBOOL(retRemoveAllURLs);
@@ -119,7 +152,8 @@
 
 -(void)open:(id)arg {
     ENSURE_UI_THREAD_0_ARGS
-    [[TiApp controller] presentModalViewController:tweetComposeViewController animated:YES];
+	
+	[[TiApp app] showModalController:tweetComposeViewController animated:YES];
 }
 
 @end

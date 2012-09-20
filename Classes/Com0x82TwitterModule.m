@@ -29,8 +29,13 @@
 	[super startup];
 	
 	NSLog(@"[INFO] %@ loaded",self);
-  
-  NSString *className = @"TWTweetComposeViewController";
+	
+  NSString *className;
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
+		className = @"SLComposeViewController";
+	else
+		className = @"TWTweetComposeViewController";
+	
   if(NSClassFromString(className) == nil) {
     [self throwException:@"The Twitter module only works on iOS5 and later" subreason:@"You are running an older version of iOS" location:CODELOCATION];
     return;
@@ -41,7 +46,12 @@
 
 #pragma Public APIs
 - (void)_canTweetStatus {
-  BOOL canTweet = [TWTweetComposeViewController canSendTweet];
+  BOOL canTweet;
+	
+	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0"))
+		canTweet = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
+	else
+		canTweet = [TWTweetComposeViewController canSendTweet];
     
   if([self _hasListeners:@"update"]) {
     NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:NUMBOOL(canTweet), @"canSendTweet", nil];
@@ -50,11 +60,30 @@
   }
 }
 
-MAKE_SYSTEM_PROP(DONE, TWTweetComposeViewControllerResultDone);
-MAKE_SYSTEM_PROP(CANCELLED, TWTweetComposeViewControllerResultCancelled);
+-(NSNumber*)DONE {
+	if(IOS6_OR_LATER)
+		return NUMINT(SLComposeViewControllerResultDone);
+	else
+		return NUMINT(TWTweetComposeViewControllerResultDone);
+}
 
-MAKE_SYSTEM_PROP(REQUEST_METHOD_GET, TWRequestMethodGET);
-MAKE_SYSTEM_PROP(REQUEST_METHOD_POST, TWRequestMethodPOST);
-MAKE_SYSTEM_PROP(REQUEST_METHOD_DELETE, TWRequestMethodDELETE);
+-(NSNumber *)CANCELLED {
+	if(IOS6_OR_LATER)
+		return NUMINT(SLComposeViewControllerResultCancelled);
+	else
+		return NUMINT(TWTweetComposeViewControllerResultCancelled);
+}
+
+-(NSNumber *)REQUEST_METHOD_GET {
+	return @(IOS6_OR_LATER ? SLRequestMethodGET : TWRequestMethodGET);
+}
+
+-(NSNumber *)REQUEST_METHOD_POST {
+	return @(IOS6_OR_LATER ? SLRequestMethodPOST : TWRequestMethodPOST);
+}
+
+-(NSNumber *)REQUEST_METHOD_DELETE {
+	return @(IOS6_OR_LATER ? SLRequestMethodDELETE : TWRequestMethodDELETE);
+}
 
 @end
