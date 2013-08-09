@@ -1,5 +1,17 @@
 # Changelog
 
+- 2013-07-17 Ruben Fonseca <fonseka@gmail.com>
+
+    * version 1.2 released
+
+    * fixed a bug with presenting the modal twitter view causing freezing of the app
+
+- 2012-11-03 Ruben Fonseca <fonseka@gmail.com>
+
+    * version 1.1 released
+
+    * fixed a compilation problem with older Xcodes
+
 - 2012-09-20 Ruben Fonseca <fonseka@gmail.com>
 
     * version 1.0 released

@@ -153,7 +153,7 @@
 -(void)open:(id)arg {
     ENSURE_UI_THREAD_0_ARGS
 	
-	[[TiApp app] showModalController:tweetComposeViewController animated:YES];
+	[[[TiApp app] controller] presentViewController:tweetComposeViewController animated:YES completion:nil];
 }
 
 @end

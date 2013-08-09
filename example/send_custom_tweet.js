@@ -55,7 +55,7 @@ button2.addEventListener('click', function(e) {
     url: 'https://upload.twitter.com/1/statuses/update_with_media.json',
     method: Twitter.REQUEST_METHOD_POST, 
     params: {
-      possibly_sensitive: true,
+      possibly_sensitive: "true",
       status: status.value
     },
     account: account
