@@ -1,5 +1,11 @@
 # Changelog
 
+- 2013-08-13 Ruben Fonseca <fonseka@gmail.com>
+
+    * version 1.3 released
+
+    * corrected documentation about grantPermission results.
+
 - 2013-07-17 Ruben Fonseca <fonseka@gmail.com>
 
     * version 1.2 released

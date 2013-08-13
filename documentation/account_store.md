@@ -11,7 +11,8 @@ on-disc account storage.
 It accepts the following params:
 
 - *granted*: a callback called if the user grants permission to your application
-- *denied*: a callback called if the user denies permission to your application
+- *denied*: a callback called if the user denies permission to your
+  application. It also contains an `error` field with the error message.
 
 
         var accountStore = Twitter.createAccountStore();
@@ -20,7 +21,7 @@ It accepts the following params:
             alert('Permission granted!');
           },
           denied: function(e) {
-            alert('Permission denied!');
+            alert('Permission denied: ' + e.error);
           }
         });
 
