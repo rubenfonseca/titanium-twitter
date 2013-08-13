@@ -49,7 +49,7 @@
 					[self _fireEventToListener:@"granted" withObject:nil listener:permissionGrantedCallback thisObject:nil];
 			} else {
 				if(permissionDeniedCallback)
-					[self _fireEventToListener:@"denied" withObject:nil listener:permissionDeniedCallback thisObject:nil];
+					[self _fireEventToListener:@"denied" withObject:@{@"error": [error localizedDescription]} listener:permissionDeniedCallback thisObject:nil];
 			}
 			
 			RELEASE_TO_NIL(permissionGrantedCallback);
@@ -62,7 +62,7 @@
 					[self _fireEventToListener:@"granted" withObject:nil listener:permissionGrantedCallback thisObject:nil];
 			} else {
 				if(permissionDeniedCallback)
-					[self _fireEventToListener:@"denied" withObject:nil listener:permissionDeniedCallback thisObject:nil];
+					[self _fireEventToListener:@"denied" withObject:@{@"error": [error localizedDescription]} listener:permissionDeniedCallback thisObject:nil];
 			}
 			
 			RELEASE_TO_NIL(permissionGrantedCallback);

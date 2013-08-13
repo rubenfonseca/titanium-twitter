@@ -5,6 +5,7 @@ var tableview = Ti.UI.createTableView();
 var store = Twitter.createAccountStore();
 
 function load_accounts() {
+  Ti.API.warn("Done loading accounts");
   var accounts = store.accounts();
 
   var data = [];
@@ -23,7 +24,8 @@ store.grantPermission({
   granted: function(e) {
     load_accounts();
   }, 
-  failure: function(e) {
+  denied: function(e) {
+    Ti.API.error("Error: " + e.error);
     alert('Permission denied');
   }
 });

@@ -287,6 +287,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/Com0x82Twitter.dst;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Com0x82Twitter_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
