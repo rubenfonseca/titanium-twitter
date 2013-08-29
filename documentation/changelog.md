@@ -1,5 +1,11 @@
 # Changelog
 
+- 2013-08-29 Ruben Fonseca <fonseka@gmail.com>
+
+    * version 1.4 released
+
+    * getting ready to iOS 7
+
 - 2013-08-13 Ruben Fonseca <fonseka@gmail.com>
 
     * version 1.3 released

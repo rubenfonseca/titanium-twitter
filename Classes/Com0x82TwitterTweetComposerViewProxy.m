@@ -15,7 +15,7 @@
 						[self fireEvent:@"complete" withObject:@{ @"result" : @(result) }];
 					}
 					
-					[[TiApp controller] dismissViewControllerAnimated:YES completion:nil];
+          [[TiApp app] hideModalController:c animated:YES];
 				};
 				
 				tweetComposeViewController = c;
@@ -29,7 +29,7 @@
 							[self fireEvent:@"complete" withObject:args];
 					}
 					
-					[[TiApp controller] dismissViewControllerAnimated:YES completion:nil];
+          [[TiApp app] hideModalController:c animated:YES];
 				};
 				
 				tweetComposeViewController = c;
@@ -153,7 +153,7 @@
 -(void)open:(id)arg {
     ENSURE_UI_THREAD_0_ARGS
 	
-	[[[TiApp app] controller] presentViewController:tweetComposeViewController animated:YES completion:nil];
+  [[TiApp app] showModalController:tweetComposeViewController animated:YES];
 }
 
 @end
