@@ -1,5 +1,11 @@
 # Changelog
 
+- 2013-09-04 Ruben Fonseca <fonseka@gmail.com>
+
+    * version 1.5 released
+
+    * one more iOS 7 bug fix
+
 - 2013-08-29 Ruben Fonseca <fonseka@gmail.com>
 
     * version 1.4 released
