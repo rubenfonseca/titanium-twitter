@@ -11,3 +11,5 @@ modules/
 *.perspectivev3
 *.pbxuser
 xcuserdata
+
+.DS_Store
