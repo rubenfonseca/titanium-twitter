@@ -8,10 +8,10 @@ author: Ruben Fonseca
 license: Commercial
 copyright: Copyright (c) 2011 by Ruben Fonseca
 
-
 # these should not be edited
 name: twitter
 moduleid: com.0x82.twitter
-guid: a497fdc6-34d1-44ac-bed6-0dfbde939f9b
+guid: 65986F0C-92A6-4F69-B7C5-4BD733882FD8
 platform: iphone
-minsdk: 2.1.2
+minsdk: 3.5.0.GA
+architectures: armv7 arm64 i386 x86_64
